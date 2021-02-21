@@ -29,6 +29,7 @@ const showImages = (images) => {
 }
 
 const getImages = (query) => {
+  
   fetch(`https://pixabay.com/api/?key=${KEY}=${query}&image_type=photo&pretty=true`)
     .then(response => response.json())
     .then(data => showImages(data.hits))
@@ -95,6 +96,7 @@ const changeSlide = (index) => {
   if (index < 0) {
     slideIndex = items.length - 1
     index = slideIndex;
+
   };
 
   if (index >= items.length) {
@@ -112,6 +114,7 @@ const changeSlide = (index) => {
 searchBtn.addEventListener('click', function () {
   document.querySelector('.main').style.display = 'none';
   clearInterval(timer);
+  // input text enterkey press Work 
   const search = document.getElementById('search');
   getImages(search.value)
   sliders.length = 0;
@@ -120,11 +123,19 @@ searchBtn.addEventListener('click', function () {
 sliderBtn.addEventListener('click', function () {
   createSlider()
 })
-
-// input text enterkey press Work 
-let inputText = document.getElementById('search')
-inputText.addEventListener('keyup', (e) => {
-  if (e.keycode === 13) {
-    console.log(e.target.value , 'entered')
+var searchInput = document.getElementById('search')
+searchInput.addEventListener("keypress", function(e){
+  
+  if (e.key === 13) {
+    var button = document.getElementById('search-btn').click()
+    getImages(button.value)
+    console.log(button, 'clicked')
   }
 })
+
+
+// spinner
+const toggleSpinner = () => {
+ const spinner = document.getElementById('d-none')
+ spinner.classList.remove('d-none')
+}
